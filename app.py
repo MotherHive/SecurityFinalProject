@@ -1,6 +1,17 @@
 from flask import Flask, request, redirect, url_for, render_template
+from models.users import User
+
+from extensions import db
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
+app.config['SECRET_KEY'] = os.getenv("DATABASE_KEY")
+
+db.init_app(app)
 
 test_user_database = {"admin": "password"}
 

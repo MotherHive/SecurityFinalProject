@@ -1,2 +1,4 @@
 Flask
-sqlalchemy
+flask-sqlalchemy
+flask-login
+python-dotenv
