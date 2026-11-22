@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect, url_for, render_template
 from flask_bcrypt import Bcrypt
-from flask_login import login_user, login_required
+from flask_login import login_user, login_required, logout_user
 from models.users import User
 from forms import LoginForm, RegisterForm
 
@@ -38,6 +38,12 @@ def login():
                 return redirect(url_for("dashboard"))
 
     return render_template("login.html", form=form)
+
+@app.route('/logout', methods=["GET", "POST"])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("login"))
 
 
 @app.route("/dashboard", methods=["GET", "POST"])
