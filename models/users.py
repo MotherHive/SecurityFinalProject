@@ -5,3 +5,11 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
+    role = db.Column(db.String(20), nullable=False)
+
+    __table_args__ = (
+        db.CheckConstraint(
+            "role IN ('admin', 'warehouse_staff', 'manager')",
+            name="check_user_role"
+        ),
+    )
