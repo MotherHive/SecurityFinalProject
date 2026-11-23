@@ -3,6 +3,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import login_user, login_required, logout_user
 from models.users import User
 from forms import LoginForm, RegisterForm
+from decorators import roles_required
 
 from extensions import db, login_manager
 from dotenv import load_dotenv
@@ -52,6 +53,7 @@ def dashboard():
     return render_template("dashboard.html")
 
 @app.route('/register', methods=["GET", "POST"])
+@roles_required("admin")
 def register():
     form = RegisterForm()
 
