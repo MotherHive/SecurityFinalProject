@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template
 from flask_bcrypt import Bcrypt
 from flask_login import login_user, login_required, logout_user
 from models.users import User
@@ -58,11 +58,10 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data)
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
         new_user = User(username=form.username.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('login'))
 
     return render_template("register.html", form=form)
 

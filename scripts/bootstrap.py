@@ -23,7 +23,7 @@ def bootstrap_admin():
             print("Password was empty or did not match confirmation.")
             sys.exit(1)
 
-        hashed_password = bcrypt.generate_password_hash(password)
+        hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
 
         admin = User(username=username, password=hashed_password, role="admin")
 
